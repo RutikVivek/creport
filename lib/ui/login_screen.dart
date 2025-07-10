@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/signin.dart';
+import 'package:portfolio/ui/signin.dart';
+import 'package:portfolio/widgets/build_shadow_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -21,68 +22,75 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:Text("Access me"),
-        backgroundColor: const Color.fromARGB(255, 42, 20, 103),
+        title: Text("Access me"),
+        backgroundColor: Color.fromARGB(255, 42, 20, 103),
       ),
       body: SafeArea(
         child: Form(
           key: _formKey,
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: EdgeInsets.all(
+              MediaQuery.of(context).size.height * 0.0200,
+            ),
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const CircleAvatar(
-                    radius: 90,
+                  CircleAvatar(
+                    radius: MediaQuery.of(context).size.height * 0.090,
                     backgroundImage: NetworkImage(
                       "https://epe.brightspotcdn.com/dims4/default/75a0bb5/2147483647/strip/true/crop/884x600+95+0/resize/840x570!/quality/90/?url=https%3A%2F%2Fepe-brightspot.s3.us-east-1.amazonaws.com%2Fe3%2F9d%2F5725af984dce8e6db0ba690f9b29%2F052024-story-embed-cosn-data-lead-art-langreo-vs.png",
                     ),
                   ),
-                  const SizedBox(height: 38),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.038),
 
-                  
-                  _buildShadowTextField(
+                  BuildShadowTextField(
                     child: TextFormField(
                       controller: nameController,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         labelText: "Name",
                         prefixIcon: Icon(Icons.person),
                         border: InputBorder.none,
-                        contentPadding: EdgeInsets.all(16),
+                        contentPadding: EdgeInsets.all(
+                          MediaQuery.of(context).size.height * 0.016,
+                        ),
                       ),
-                      validator: (value) =>
-                          value == null || value.isEmpty ? "Enter your name" : null,
+                      validator: (value) => value == null || value.isEmpty
+                          ? "Enter your name"
+                          : null,
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.020),
 
-                  
-                  _buildShadowTextField(
+                  BuildShadowTextField(
                     child: TextFormField(
                       controller: emailController,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         labelText: "Email",
                         prefixIcon: Icon(Icons.email),
                         border: InputBorder.none,
-                        contentPadding: EdgeInsets.all(16),
+                        contentPadding: EdgeInsets.all(
+                          MediaQuery.of(context).size.height * 0.016,
+                        ),
                       ),
                       keyboardType: TextInputType.emailAddress,
-                      validator: (value) =>
-                          value == null || value.isEmpty ? "Enter your email" : null,
+                      validator: (value) => value == null || value.isEmpty
+                          ? "Enter your email"
+                          : null,
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.020),
 
-                  
-                  _buildShadowTextField(
+                  BuildShadowTextField(
                     child: TextFormField(
                       controller: passwordController,
                       obscureText: _obscureText,
                       decoration: InputDecoration(
                         labelText: "Password",
-                        prefixIcon: const Icon(Icons.lock),
+                        prefixIcon: Icon(Icons.lock),
                         border: InputBorder.none,
-                        contentPadding: const EdgeInsets.all(16),
+                        contentPadding: EdgeInsets.all(
+                          MediaQuery.of(context).size.height * 0.016,
+                        ),
                         suffixIcon: IconButton(
                           icon: Icon(
                             _obscureText
@@ -106,18 +114,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.020),
 
-                  
-                  _buildShadowTextField(
+                  BuildShadowTextField(
                     child: TextFormField(
                       controller: confirmpasswordController,
                       obscureText: _obscureText,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         labelText: "Confirm Password",
                         prefixIcon: Icon(Icons.lock),
                         border: InputBorder.none,
-                        contentPadding: EdgeInsets.all(16),
+                        contentPadding: EdgeInsets.all(
+                          MediaQuery.of(context).size.height * 0.016,
+                        ),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -129,25 +138,30 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                     ),
                   ),
-                  const SizedBox(height: 32),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.032),
 
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         // ScaffoldMessenger.of(context).showSnackBar(
-                        //   const SnackBar(
+                        //    SnackBar(
                         //     content:
                         //         Text("Signup Successful (next page coming soon)"),
                         //   ),
                         // );
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => Signin(),));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Signin()),
+                        );
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 62, vertical: 16),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.height * 0.062,
+                        vertical: MediaQuery.of(context).size.height * 0.016,
+                      ),
                     ),
-                    child: const Text("Sign Up"),
+                    child: Text("Sign Up"),
                   ),
                 ],
               ),
@@ -155,24 +169,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
-    );
-  }
-
- 
-  Widget _buildShadowTextField({required Widget child}) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white, 
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 8,
-            offset: Offset(2, 2),
-          ),
-        ],
-      ),
-      child: child,
     );
   }
 }

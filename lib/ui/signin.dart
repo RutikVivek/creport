@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'homepage.dart'; // Make sure this file exists and is correctly imported
+import 'homepage.dart';
 
 class Signin extends StatefulWidget {
   const Signin({super.key});
@@ -18,39 +18,43 @@ class _SigninState extends State<Signin> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           "Access me!",
           style: TextStyle(
             color: Colors.white,
-            fontSize: 20,
+            fontSize: MediaQuery.of(context).size.height * 0.020,
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: const Color.fromARGB(255, 42, 20, 103),
-        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: Color.fromARGB(255, 42, 20, 103),
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: SafeArea(
         child: Form(
           key: _formKey,
           child: Center(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(
+                MediaQuery.of(context).size.height * 0.016,
+              ),
               child: Column(
                 children: [
-                  const CircleAvatar(
-                    radius: 90,
+                  CircleAvatar(
+                    radius: MediaQuery.of(context).size.height * 0.090,
                     backgroundImage: NetworkImage(
                       "https://epe.brightspotcdn.com/dims4/default/75a0bb5/2147483647/strip/true/crop/884x600+95+0/resize/840x570!/quality/90/?url=https%3A%2F%2Fepe-brightspot.s3.us-east-1.amazonaws.com%2Fe3%2F9d%2F5725af984dce8e6db0ba690f9b29%2F052024-story-embed-cosn-data-lead-art-langreo-vs.png",
                     ),
                   ),
-                  const SizedBox(height: 50),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.050),
 
                   Container(
-                    padding: const EdgeInsets.all(24),
+                    padding: EdgeInsets.all(24),
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(40),
-                      boxShadow: const [
+                      borderRadius: BorderRadius.circular(
+                        MediaQuery.of(context).size.height * 0.040,
+                      ),
+                      boxShadow: [
                         BoxShadow(
                           color: Colors.black26,
                           blurRadius: 12,
@@ -62,19 +66,22 @@ class _SigninState extends State<Signin> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Text(
+                        Text(
                           "Welcome Back!",
                           style: TextStyle(
-                            fontSize: 24,
+                            fontSize:
+                                MediaQuery.of(context).size.height * 0.024,
                             fontWeight: FontWeight.bold,
                             color: Color.fromARGB(255, 0, 0, 0),
                           ),
                         ),
-                        const SizedBox(height: 50),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.050,
+                        ),
 
                         TextFormField(
                           controller: usernameController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: "Username",
                             prefixIcon: Icon(Icons.person),
                             border: OutlineInputBorder(),
@@ -86,18 +93,22 @@ class _SigninState extends State<Signin> {
                             return null;
                           },
                         ),
-                        const SizedBox(height: 20),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.020,
+                        ),
 
                         TextFormField(
                           controller: passwordController,
                           obscureText: _obscureText,
                           decoration: InputDecoration(
                             labelText: "Password",
-                            prefixIcon: const Icon(Icons.lock),
-                            border: const OutlineInputBorder(),
+                            prefixIcon: Icon(Icons.lock),
+                            border: OutlineInputBorder(),
                             suffixIcon: IconButton(
                               icon: Icon(
-                                _obscureText ? Icons.visibility_off : Icons.visibility,
+                                _obscureText
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
                               ),
                               onPressed: () {
                                 setState(() {
@@ -115,7 +126,9 @@ class _SigninState extends State<Signin> {
                             return null;
                           },
                         ),
-                        const SizedBox(height: 30),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.030,
+                        ),
 
                         ElevatedButton(
                           onPressed: () {
@@ -123,23 +136,31 @@ class _SigninState extends State<Signin> {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const HomePage(),
+                                  builder: (context) => HomePage(),
                                 ),
                               );
                             }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 16),
+                            padding: EdgeInsets.symmetric(
+                              horizontal:
+                                  MediaQuery.of(context).size.height * 0.060,
+                              vertical:
+                                  MediaQuery.of(context).size.height * 0.016,
+                            ),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
+                              borderRadius: BorderRadius.circular(
+                                MediaQuery.of(context).size.height * 0.030,
+                              ),
                             ),
                             elevation: 10,
                           ),
-                          child: const Text(
+                          child: Text(
                             "Sign In",
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.016,
                               color: Color.fromARGB(255, 42, 20, 103),
                               fontWeight: FontWeight.bold,
                             ),

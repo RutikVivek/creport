@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/data/appdata.dart';
-import 'package:portfolio/education_info.dart';
+import 'package:portfolio/ui/education_info.dart';
 
 class SkillsPage extends StatefulWidget {
   const SkillsPage({super.key});
@@ -17,16 +17,13 @@ class _SkillsPageState extends State<SkillsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFDF4FF),
+      backgroundColor: Color(0xFFFDF4FF),
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Skills Page',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        backgroundColor: const Color.fromARGB(255, 42, 20, 103),
+        backgroundColor: Color.fromARGB(255, 42, 20, 103),
         elevation: 5,
         centerTitle: true,
       ),
@@ -34,13 +31,17 @@ class _SkillsPageState extends State<SkillsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(
-              padding: EdgeInsets.only(left: 25, top: 20, bottom: 10),
+            Padding(
+              padding: EdgeInsets.only(
+                left: MediaQuery.of(context).size.height * 0.025,
+                top: MediaQuery.of(context).size.height * 0.020,
+                bottom: MediaQuery.of(context).size.height * 0.010,
+              ),
               child: Text(
                 '3. Select Skills',
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 17,
+                  fontSize: MediaQuery.of(context).size.height * 0.017,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -53,9 +54,14 @@ class _SkillsPageState extends State<SkillsPage> {
                   final isSelected = selectedValues[index] ?? false;
 
                   return Card(
-                    margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    margin: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.height * 0.016,
+                      vertical: MediaQuery.of(context).size.height * 0.08,
+                    ),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(
+                        MediaQuery.of(context).size.height * 0.012,
+                      ),
                     ),
                     elevation: 2,
                     child: Column(
@@ -104,28 +110,36 @@ class _SkillsPageState extends State<SkillsPage> {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const EducationInfo()),
+                    MaterialPageRoute(builder: (context) => EducationInfo()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.deepPurple,
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(
+                      MediaQuery.of(context).size.height * 0.010,
+                    ),
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.height * 0.030,
+                    vertical: MediaQuery.of(context).size.height * 0.012,
+                  ),
                 ),
-                child: const Text("Next Page", style: TextStyle(fontSize: 14)),
+                child: Text(
+                  "Next Page",
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.height * 0.014,
+                  ),
+                ),
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.020),
           ],
         ),
       ),
     );
   }
 }
-
