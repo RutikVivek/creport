@@ -1,15 +1,18 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:portfolio/db/database_helper.dart';
 import 'package:portfolio/ui/signin.dart';
 import 'package:portfolio/widgets/build_shadow_text_field.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -17,6 +20,40 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _obscureText = true;
+  DataBaseHelper dbHelper = DataBaseHelper();
+
+  void registerUser() async {
+    final username = nameController.text.trim();
+    final email = emailController.text.trim();
+    final password = passwordController.text.trim();
+
+    if (username.isEmpty || email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Enter username/ email/password first")),
+      );
+    }
+
+    try {
+      bool exists = await dbHelper.checkUserExist(email);
+
+      if (exists) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("Email already Exists")));
+      } else {
+        await dbHelper.signup(username, email, password);
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("Account Created Successfully")));
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Signin()),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("$e")));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -143,16 +180,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //    SnackBar(
-                        //     content:
-                        //         Text("Signup Successful (next page coming soon)"),
-                        //   ),
-                        // );
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Signin()),
-                        );
+                        registerUser();
                       }
                     },
                     style: ElevatedButton.styleFrom(

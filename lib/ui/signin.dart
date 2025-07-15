@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/db/database_helper.dart';
 import 'homepage.dart';
 
 class Signin extends StatefulWidget {
@@ -9,10 +10,42 @@ class Signin extends StatefulWidget {
 }
 
 class _SigninState extends State<Signin> {
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _obscureText = true;
+
+  DataBaseHelper databaseHelper = DataBaseHelper();
+
+  void loginUser() async {
+    final email = emailController.text;
+    final password = passwordController.text;
+
+    if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Enter Email and password first")));
+    }
+
+    try {
+      final user = await databaseHelper.signin(email, password);
+      if (user != null) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("You are Logged in")));
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+        );
+      } else {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("Enter valid Credentials")));
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("$e")));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,15 +113,15 @@ class _SigninState extends State<Signin> {
                         ),
 
                         TextFormField(
-                          controller: usernameController,
+                          controller: emailController,
                           decoration: InputDecoration(
-                            labelText: "Username",
+                            labelText: "email",
                             prefixIcon: Icon(Icons.person),
                             border: OutlineInputBorder(),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return "Please enter your username";
+                              return "Please enter your email";
                             }
                             return null;
                           },
@@ -133,12 +166,7 @@ class _SigninState extends State<Signin> {
                         ElevatedButton(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => HomePage(),
-                                ),
-                              );
+                              loginUser();
                             }
                           },
                           style: ElevatedButton.styleFrom(
