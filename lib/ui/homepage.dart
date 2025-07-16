@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/ui/signin.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'personal_info.dart';
 
 class HomePage extends StatelessWidget {
@@ -6,17 +8,40 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void logout() async {
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+
+      sharedPreferences.remove("email");
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("You are Logged out")));
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Signin()),
+      );
+    }
+
     return Scaffold(
       backgroundColor: Color(0xFFFDF1FF),
       appBar: AppBar(
         backgroundColor: Color(0xFF2A1467),
-        title: Text(
-          "Welcome",
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: MediaQuery.of(context).size.height * 0.022,
-          ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "Welcome",
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: MediaQuery.of(context).size.height * 0.022,
+              ),
+            ),
+            IconButton(
+              onPressed: logout,
+              icon: Icon(Icons.logout, color: Colors.white),
+            ),
+          ],
         ),
         centerTitle: true,
       ),

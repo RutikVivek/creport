@@ -1,5 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:portfolio/db/database_helper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'homepage.dart';
 
 class Signin extends StatefulWidget {
@@ -30,6 +33,10 @@ class _SigninState extends State<Signin> {
     try {
       final user = await databaseHelper.signin(email, password);
       if (user != null) {
+        SharedPreferences sharedPreferences =
+            await SharedPreferences.getInstance();
+
+        sharedPreferences.setString("email", email);
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text("You are Logged in")));
