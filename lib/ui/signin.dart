@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:portfolio/db/database_helper.dart';
+import 'package:portfolio/ui/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'homepage.dart';
 
@@ -200,6 +201,23 @@ class _SigninState extends State<Signin> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Don't have an account"),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SignUpScreen(),
+                                  ),
+                                );
+                              },
+                              child: Text("Sign Up"),
+                            ),
+                          ],
                         ),
                       ],
                     ),

@@ -25,9 +25,24 @@ email TEXT,
 password TEXT
 )
 ''');
-  }
 
-  //Insert data to users table
+    await db.execute('''
+CREATE TABLE profile(
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+full_name TEXT,
+profile_photo TEXT,
+profession TEXT,
+bio TEXT,
+mobile_number TEXT,
+address TEXT,
+linkedin TEXT,
+github TEXT,
+facebook TEXT,
+instagram TEXT,
+twitter TEXT
+)
+''');
+  }
 
   Future<int> signup(String username, String email, String password) async {
     var client = await db;
@@ -69,6 +84,48 @@ password TEXT
       return true;
     }
     return false;
+  }
+
+  Future<int> insertProfile(Map<String, dynamic> profile) async {
+    var client = await db;
+
+    return client.insert('profile', profile);
+  }
+
+  Future<List<Map<String, dynamic>>> getAllProfiles() async {
+    var client = await db;
+    return client.query('profile');
+  }
+
+  Future<Map<String, dynamic>?> getProfileById(String id) async {
+    var client = await db;
+    final result = await client.query(
+      'profile',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+    if (result.isNotEmpty) {
+      return result.first;
+    }
+    return null;
+  }
+
+  Future<int> updateProfile(
+    String id,
+    Map<String, dynamic> updatedProfile,
+  ) async {
+    var client = await db;
+    return client.update(
+      'profile',
+      updatedProfile,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
+  Future<int> deleteProfile(String id) async {
+    var client = await db;
+    return client.delete('profile', where: 'id = ?');
   }
 
   //closing database
