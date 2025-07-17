@@ -54,7 +54,6 @@ twitter TEXT
     });
   }
 
-  //Login
   Future<Map<String, dynamic>?> signin(String email, String password) async {
     var client = await db;
 
@@ -70,7 +69,6 @@ twitter TEXT
     return null;
   }
 
-  //user exist or not
   Future<bool> checkUserExist(String email) async {
     var client = await db;
 
@@ -97,7 +95,7 @@ twitter TEXT
     return client.query('profile');
   }
 
-  Future<Map<String, dynamic>?> getProfileById(String id) async {
+  Future<Map<String, dynamic>?> getProfileById(int id) async {
     var client = await db;
     final result = await client.query(
       'profile',
@@ -110,10 +108,7 @@ twitter TEXT
     return null;
   }
 
-  Future<int> updateProfile(
-    String id,
-    Map<String, dynamic> updatedProfile,
-  ) async {
+  Future<int> updateProfile(int id, Map<String, dynamic> updatedProfile) async {
     var client = await db;
     return client.update(
       'profile',
@@ -123,7 +118,7 @@ twitter TEXT
     );
   }
 
-  Future<int> deleteProfile(String id) async {
+  Future<int> deleteProfile(int id) async {
     var client = await db;
     return client.delete('profile', where: 'id = ?');
   }

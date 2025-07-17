@@ -1,16 +1,16 @@
 class ProfileDataModel {
-  final int? id;
-  final String? fullName;
-  final String? profilePhoto;
-  final String? profession;
-  final String? bio;
-  final String? mobileNumber;
-  final String? address;
-  final String? linkedin;
-  final String? github;
-  final String? facebook;
-  final String? instagram;
-  final String? twitter;
+  int? id;
+  String? fullName;
+  String? profilePhoto;
+  String? profession;
+  String? bio;
+  String? mobileNumber;
+  String? address;
+  String? linkedin;
+  String? github;
+  String? facebook;
+  String? instagram;
+  String? twitter;
 
   ProfileDataModel({
     this.id,
